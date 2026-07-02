@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full bg-gray-50">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HostelHub - Reports</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>body { font-family: 'Inter', sans-serif; } .font-roboto { font-family: 'Roboto', sans-serif; }</style>
+</head>
+<body class="h-full text-gray-900 antialiased">
+    <div class="min-h-full flex">
+        <!-- SIDEBAR -->
+        <aside class="w-64 bg-white border-r border-gray-200 flex flex-col fixed inset-y-0 left-0 z-20">
+            <div class="h-16 flex items-center px-6 border-b border-gray-100 gap-3">
+                <div class="h-9 w-9 bg-indigo-600 rounded-lg flex items-center justify-center text-white shadow-sm shadow-indigo-200"><i class="fa-solid fa-hotel text-sm"></i></div>
+                <span class="text-xl font-bold tracking-tight text-gray-900">Hostel<span class="text-indigo-600">Hub</span></span>
+            </div>
+            <nav class="flex-1 px-4 py-6 space-y-1 overflow-y-auto">
+                <a href="dashboard.html" class="flex items-center gap-3 px-3 py-2.5 text-sm font-medium rounded-lg text-gray-600 hover:bg-gray-50 hover:text-gray-900 transition-colors"><i class="fa-solid fa-chart-pie text-lg w-5 text-gray-400"></i> Dashboard</a>
+                <a href="organizations.html" class="flex items-center gap-3 px-3 py-2.5 text-sm font-medium rounded-lg text-gray-600 hover:bg-gray-50 hover:text-gray-900 transition-colors"><i class="fa-solid fa-sitemap text-lg w-5 text-gray-400"></i> Organizations</a>
+                <a href="properties.html" class="flex items-center gap-3 px-3 py-2.5 text-sm font-medium rounded-lg text-gray-600 hover:bg-gray-50 hover:text-gray-900 transition-colors"><i class="fa-solid fa-building text-lg w-5 text-gray-400"></i> Properties</a>
+                <a href="buildings-floors.html" class="flex items-center gap-3 px-3 py-2.5 text-sm font-medium rounded-lg text-gray-600 hover:bg-gray-50 hover:text-gray-900 transition-colors"><i class="fa-solid fa-layer-group text-lg w-5 text-gray-400"></i> Buildings & Floors</a>
+                <a href="rooms-beds.html" class="flex items-center gap-3 px-3 py-2.5 text-sm font-medium rounded-lg text-gray-600 hover:bg-gray-50 hover:text-gray-900 transition-colors"><i class="fa-solid fa-bed text-lg w-5 text-gray-400"></i> Rooms & Beds</a>
+                <a href="tenants.html" class="flex items-center gap-3 px-3 py-2.5 text-sm font-medium rounded-lg text-gray-600 hover:bg-gray-50 hover:text-gray-900 transition-colors"><i class="fa-solid fa-users text-lg w-5 text-gray-400"></i> Tenants</a>
+                <a href="billing-payments.html" class="flex items-center gap-3 px-3 py-2.5 text-sm font-medium rounded-lg text-gray-600 hover:bg-gray-50 hover:text-gray-900 transition-colors"><i class="fa-solid fa-file-invoice-dollar text-lg w-5 text-gray-400"></i> Billing & Payments</a>
+                <a href="reports.html" class="flex items-center gap-3 px-3 py-2.5 text-sm font-medium rounded-lg bg-indigo-50 text-indigo-700 transition-colors"><i class="fa-solid fa-chart-line text-lg w-5 text-indigo-600"></i> Reports</a>
+                <a href="biometric.html" class="flex items-center gap-3 px-3 py-2.5 text-sm font-medium rounded-lg text-gray-600 hover:bg-gray-50 hover:text-gray-900 transition-colors"><i class="fa-solid fa-fingerprint text-lg w-5 text-gray-400"></i> Biometric</a>
+                <a href="settings.html" class="flex items-center gap-3 px-3 py-2.5 text-sm font-medium rounded-lg text-gray-600 hover:bg-gray-50 hover:text-gray-900 transition-colors"><i class="fa-solid fa-sliders text-lg w-5 text-gray-400"></i> Settings</a>
+            </nav>
+            <div class="p-4 border-t border-gray-100 bg-gray-50"><div class="flex items-center gap-3"><div class="h-9 w-9 bg-amber-500 text-white rounded-full flex items-center justify-center font-semibold text-sm">AA</div><div class="flex-1 min-w-0"><p class="text-sm font-medium text-gray-900 truncate">Avinash Avate</p><p class="text-xs text-gray-500 truncate">Product Owner</p></div></div></div>
+        </aside>
+
+        <!-- MAIN LAYOUT WRAPPER -->
+        <div class="pl-64 flex flex-col flex-1 min-w-0">
+            <header class="h-16 bg-white border-b border-gray-200 flex items-center justify-between px-8 sticky top-0 z-10">
+                <div class="flex items-center gap-8">
+                    <nav class="flex text-sm text-gray-500 font-medium" aria-label="Breadcrumb">
+                        <ol class="inline-flex items-center space-x-1 md:space-x-2">
+                            <li class="inline-flex items-center"><a href="dashboard.html" class="hover:text-indigo-600">Home</a></li>
+                            <li><div class="flex items-center"><i class="fa-solid fa-chevron-right text-xs text-gray-400 mx-1"></i><span class="text-gray-900 font-semibold ml-1">Reports</span></div></li>
+                        </ol>
+                    </nav>
+                </div>
+            </header>
+
+            <main class="flex-1 p-8 space-y-6">
+                <div>
+                    <h1 class="text-2xl font-bold tracking-tight text-gray-900">System Analytics Export</h1>
+                    <p class="text-sm text-gray-500 mt-1">Generate on-demand analytical audit reports for occupancy spreadsheets.</p>
+                </div>
+
+                <div class="bg-white border border-gray-200 rounded-xl p-6 max-w-md space-y-4">
+                    <h3 class="text-sm font-bold text-gray-900">Occupancy Trend Sheet</h3>
+                    <button class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-xs py-2.5 rounded-lg shadow-sm transition-all"><i class="fa-solid fa-file-excel mr-2"></i>Export Current Month Data (.XLSX)</button>
+                </div>
+            </main>
+        </div>
+    </div>
+</body>
+</html>

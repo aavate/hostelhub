@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full bg-gray-50">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HostelHub - Admin Dashboard</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter & Roboto -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Elegant Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --color-surface: #ffffff;
+            --color-muted: #6b7280;
+            --color-border: #e5e7eb;
+            --color-primary: #4f46e5;
+            --color-secondary: #0ea5e9;
+            --color-success: #10b981;
+            --color-warning: #f59e0b;
+            --color-danger: #ef4444;
+            --color-surface-muted: #f8fafc;
+            --color-primary-50: #eef2ff;
+            --color-secondary-50: #e0f2fe;
+            --color-success-50: #d1fae5;
+            --color-warning-50: #fef3c7;
+            --color-danger-50: #fee2e2;
+        }
+        body { font-family: 'Inter', sans-serif; }
+        .font-roboto { font-family: 'Roboto', sans-serif; }
+        .bg-surface { background-color: var(--color-surface); }
+        .bg-surface-muted { background-color: var(--color-surface-muted); }
+        .bg-primary { background-color: var(--color-primary); }
+        .bg-secondary { background-color: var(--color-secondary); }
+        .bg-success { background-color: var(--color-success); }
+        .bg-warning { background-color: var(--color-warning); }
+        .bg-danger { background-color: var(--color-danger); }
+        .bg-primary-50 { background-color: var(--color-primary-50); }
+        .bg-secondary-50 { background-color: var(--color-secondary-50); }
+        .bg-success-50 { background-color: var(--color-success-50); }
+        .bg-warning-50 { background-color: var(--color-warning-50); }
+        .bg-danger-50 { background-color: var(--color-danger-50); }
+        .text-primary { color: var(--color-primary); }
+        .text-secondary { color: var(--color-secondary); }
+        .text-muted { color: var(--color-muted); }
+        .text-success { color: var(--color-success); }
+        .text-warning { color: var(--color-warning); }
+        .text-danger { color: var(--color-danger); }
+        .border-standard { border-color: var(--color-border); }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.625rem 0.75rem;
+            border-radius: 0.75rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: background-color 0.2s ease, color 0.2s ease;
+        }
+        .nav-link:hover {
+            background-color: var(--color-surface-muted);
+            color: #111827;
+        }
+        .nav-icon {
+            width: 1.25rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 0.75rem;
+            padding: 0.4rem;
+        }
+        .nav-link-dashboard .nav-icon { background-color: #eef2ff; color: #4338ca; }
+        .nav-link-organizations .nav-icon { background-color: #e0f2fe; color: #0284c7; }
+        .nav-link-properties .nav-icon { background-color: #f0f9ff; color: #0c4a6e; }
+        .nav-link-buildings .nav-icon { background-color: #f5f3ff; color: #7c3aed; }
+        .nav-link-rooms .nav-icon { background-color: #fef9c3; color: #ca8a04; }
+        .nav-link-tenants .nav-icon { background-color: #ede9fe; color: #6d28d9; }
+        .nav-link-billing .nav-icon { background-color: #e0f7fa; color: #0369a1; }
+        .nav-link-reports .nav-icon { background-color: #ffedd5; color: #c2410c; }
+        .nav-link-biometric .nav-icon { background-color: #dcfce7; color: #15803d; }
+        .nav-link-settings .nav-icon { background-color: #f3f4f6; color: #374151; }
+        .nav-link-active {
+            background-color: rgba(79, 70, 229, 0.12);
+            color: #4338ca;
+        }
+        .nav-link-active .nav-icon {
+            background-color: #c7d2fe;
+            color: #4338ca;
+        }
+        .chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            padding: 0.35rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        .chip-primary {
+            background-color: rgba(79, 70, 229, 0.12);
+            color: var(--color-primary);
+        }
+        .chip-secondary {
+            background-color: rgba(14, 165, 233, 0.12);
+            color: var(--color-secondary);
+        }
+        .chip-success {
+            background-color: rgba(16, 185, 129, 0.12);
+            color: var(--color-success);
+        }
+        .chip-warning {
+            background-color: rgba(245, 158, 11, 0.12);
+            color: var(--color-warning);
+        }
+        .chip-danger {
+            background-color: rgba(239, 68, 68, 0.12);
+            color: var(--color-danger);
+        }
+    </style>
+</head>
+<body class="h-full text-gray-900 antialiased">
+
+    <div class="min-h-full flex">
+        <!-- 1. LEFT SIDEBAR NAVIGATION -->
+        <aside class="w-64 bg-white border-r border-gray-200 flex flex-col fixed inset-y-0 left-0 z-20">
+            <!-- Logo Section -->
+            <div class="h-16 flex items-center px-6 border-b border-gray-100 gap-3">
+                <div class="h-9 w-9 bg-indigo-600 rounded-lg flex items-center justify-center text-white shadow-sm shadow-indigo-200">
+                    <i class="fa-solid fa-hotel text-sm"></i>
+                </div>
+                <span class="text-xl font-bold tracking-tight text-gray-900">Hostel<span class="text-indigo-600">Hub</span></span>
+            </div>
+
+            <!-- Nav Links (8px Grid Alignment via space-y-2) -->
+             <nav class="flex-1 px-4 py-6 space-y-1 overflow-y-auto">
+                <a href="dashboard.html" class="nav-link nav-link-dashboard nav-link-active"><span class="nav-icon"><i class="fa-solid fa-chart-pie"></i></span> Dashboard</a>
+                <a href="organizations.html" class="nav-link nav-link-organizations"><span class="nav-icon"><i class="fa-solid fa-sitemap"></i></span> Organizations</a>
+                <a href="properties.html" class="nav-link nav-link-properties"><span class="nav-icon"><i class="fa-solid fa-building"></i></span> Properties</a>
+                <a href="buildings-floors.html" class="nav-link nav-link-buildings"><span class="nav-icon"><i class="fa-solid fa-layer-group"></i></span> Buildings & Floors</a>
+                <a href="rooms-beds.html" class="nav-link nav-link-rooms"><span class="nav-icon"><i class="fa-solid fa-bed"></i></span> Rooms & Beds</a>
+                <a href="tenants.html" class="nav-link nav-link-tenants"><span class="nav-icon"><i class="fa-solid fa-users"></i></span> Tenants</a>
+                <a href="billing-payments.html" class="nav-link nav-link-billing"><span class="nav-icon"><i class="fa-solid fa-file-invoice-dollar"></i></span> Billing & Payments</a>
+                <a href="reports.html" class="nav-link nav-link-reports"><span class="nav-icon"><i class="fa-solid fa-chart-line"></i></span> Reports</a>
+                <a href="biometric.html" class="nav-link nav-link-biometric"><span class="nav-icon"><i class="fa-solid fa-fingerprint"></i></span> Biometric</a>
+                <a href="settings.html" class="nav-link nav-link-settings"><span class="nav-icon"><i class="fa-solid fa-sliders"></i></span> Settings</a>
+            </nav>
+
+            <!-- Bottom Profile / Context Menu -->
+            <div class="p-4 border-t border-gray-100 bg-gray-50">
+                <div class="flex items-center gap-3">
+                    <div class="h-9 w-9 bg-amber-500 text-white rounded-full flex items-center justify-center font-semibold text-sm">
+                        AA
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <p class="text-sm font-medium text-gray-900 truncate">Avinash Avate</p>
+                        <p class="text-xs text-gray-500 truncate">Product Owner</p>
+                    </div>
+                    <button class="text-gray-400 hover:text-gray-600">
+                        <i class="fa-solid fa-angle-down text-xs"></i>
+                    </button>
+                </div>
+            </div>
+        </aside>
+
+        <!-- MAIN LAYOUT WRAPPER -->
+        <div class="pl-64 flex flex-col flex-1 min-w-0">
+            
+            <!-- 2. TOP APP BAR WITH BREADCRUMBS -->
+            <header class="h-16 bg-white border-b border-gray-200 flex items-center justify-between px-8 sticky top-0 z-10">
+                <!-- Search & Breadcrumb -->
+                <div class="flex items-center gap-8">
+                    <nav class="flex text-sm text-gray-500 font-medium" aria-label="Breadcrumb">
+                        <ol class="inline-flex items-center space-x-1 md:space-x-2">
+                            <li class="inline-flex items-center">
+                                <a href="#" class="hover:text-indigo-600">Home</a>
+                            </li>
+                            <li>
+                                <div class="flex items-center">
+                                    <i class="fa-solid fa-chevron-right text-xs text-gray-400 mx-1"></i>
+                                    <span class="text-gray-900 font-semibold ml-1">Dashboard</span>
+                                </div>
+                            </li>
+                        </ol>
+                    </nav>
+                    <div class="relative w-64">
+                        <span class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-gray-400">
+                            <i class="fa-solid fa-magnifying-glass text-xs"></i>
+                        </span>
+                        <input type="text" placeholder="Global search..." class="w-full pl-9 pr-4 py-1.5 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all">
+                    </div>
+                </div>
+
+                <!-- Action Items -->
+                <div class="flex items-center gap-4">
+                    <button class="p-2 text-gray-400 hover:text-gray-600 relative rounded-full hover:bg-gray-50 transition-colors">
+                        <i class="fa-solid fa-bell text-lg"></i>
+                        <span class="absolute top-1 right-1 h-2 w-2 bg-rose-500 rounded-full ring-2 ring-white"></span>
+                    </button>
+                    <div class="h-6 w-px bg-gray-200"></div>
+                    <span class="text-sm font-medium text-gray-600 font-roboto">July 2026</span>
+                </div>
+            </header>
+
+            <!-- 3. MAIN DASHBOARD CONTENT GRID -->
+            <main class="flex-1 p-8 space-y-8 overflow-y-auto">
+                
+                <!-- Welcome & Global Context Header -->
+                <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                    <div>
+                        <h1 class="text-2xl font-bold tracking-tight text-gray-900">Operational Overview</h1>
+                        <p class="text-sm text-gray-500 mt-1">Real-time status updates across all current operational properties.</p>
+                    </div>
+                    <div class="flex gap-3">
+                        <button class="inline-flex items-center gap-2 px-4 py-2 border border-gray-300 rounded-lg bg-white text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 transition-colors">
+                            <i class="fa-solid fa-filter text-xs"></i> Filter View
+                        </button>
+                        <button class="inline-flex items-center gap-2 px-4 py-2 bg-indigo-600 rounded-lg text-sm font-medium text-white shadow-sm hover:bg-indigo-700 transition-colors">
+                            <i class="fa-solid fa-plus text-xs"></i> Add Tenant
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 7 REQUIREMENT CORE KPI CARDS -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    
+                    <!-- Card 1: Total Beds -->
+                    <div class="bg-white p-6 rounded-xl border border-standard shadow-sm hover:shadow-md transition-shadow">
+                        <div class="flex justify-between items-start">
+                            <p class="text-sm font-semibold text-muted uppercase tracking-wider">Total Capacity</p>
+                            <span class="p-2 bg-primary-50 text-primary rounded-lg"><i class="fa-solid fa-bed text-sm"></i></span>
+                        </div>
+                        <p class="text-3xl font-bold font-roboto tracking-tight text-gray-900 mt-2">1,250</p>
+                        <div class="mt-2 text-xs font-medium text-success flex items-center gap-1">
+                            <i class="fa-solid fa-arrow-up"></i> +12% <span class="text-gray-400">vs last cycle</span>
+                        </div>
+                    </div>
+
+                    <!-- Card 2: Occupied -->
+                    <div class="bg-white p-6 rounded-xl border border-standard shadow-sm hover:shadow-md transition-shadow">
+                        <div class="flex justify-between items-start">
+                            <p class="text-sm font-semibold text-muted uppercase tracking-wider">Occupied Beds</p>
+                            <span class="p-2 bg-success-50 text-success rounded-lg"><i class="fa-solid fa-user-check text-sm"></i></span>
+                        </div>
+                        <p class="text-3xl font-bold font-roboto tracking-tight text-gray-900 mt-2">1,020</p>
+                        <div class="mt-2 text-xs font-medium text-gray-500">
+                            Currently checked-in tenants
+                        </div>
+                    </div>
+
+                    <!-- Card 3: Vacant -->
+                    <div class="bg-white p-6 rounded-xl border border-standard shadow-sm hover:shadow-md transition-shadow">
+                        <div class="flex justify-between items-start">
+                            <p class="text-sm font-semibold text-muted uppercase tracking-wider">Vacant Beds</p>
+                            <span class="p-2 bg-warning-50 text-warning rounded-lg"><i class="fa-solid fa-door-open text-sm"></i></span>
+                        </div>
+                        <p class="text-3xl font-bold font-roboto tracking-tight text-gray-900 mt-2">230</p>
+                        <div class="mt-2 text-xs font-medium text-warning flex items-center gap-1">
+                            <span class="h-2 w-2 bg-warning rounded-full inline-block"></span> Ready for onboarding
+                        </div>
+                    </div>
+
+                    <!-- Card 4: Occupancy % -->
+                    <div class="bg-white p-6 rounded-xl border border-standard shadow-sm hover:shadow-md transition-shadow">
+                        <div class="flex justify-between items-start">
+                            <p class="text-sm font-semibold text-muted uppercase tracking-wider">Occupancy Rate</p>
+                            <span class="p-2 bg-secondary-50 text-secondary rounded-lg"><i class="fa-solid fa-percentage text-sm"></i></span>
+                        </div>
+                        <p class="text-3xl font-bold font-roboto tracking-tight text-gray-900 mt-2">81.6%</p>
+                        <div class="mt-2 w-full bg-gray-100 rounded-full h-1.5 overflow-hidden">
+                            <div class="bg-secondary h-1.5 rounded-full" style="width: 81.6%"></div>
+                        </div>
+                    </div>
+
+                    <!-- Card 5: Today's Collection -->
+                    <div class="bg-white p-6 rounded-xl border border-standard shadow-sm hover:shadow-md transition-shadow">
+                        <div class="flex justify-between items-start">
+                            <p class="text-sm font-semibold text-muted uppercase tracking-wider">Today's Revenue</p>
+                            <span class="p-2 bg-success-50 text-success rounded-lg"><i class="fa-solid fa-cash-register text-sm"></i></span>
+                        </div>
+                        <p class="text-3xl font-bold font-roboto tracking-tight text-gray-900 mt-2">$4,250</p>
+                        <div class="mt-2 text-xs font-medium text-success flex items-center gap-1">
+                            <i class="fa-solid fa-circle-check"></i> Automated reconciliation active
+                        </div>
+                    </div>
+
+                    <!-- Card 6: Monthly Collection -->
+                    <div class="bg-white p-6 rounded-xl border border-standard shadow-sm hover:shadow-md transition-shadow">
+                        <div class="flex justify-between items-start">
+                            <p class="text-sm font-semibold text-muted uppercase tracking-wider">Monthly Total</p>
+                            <span class="p-2 bg-secondary-50 text-secondary rounded-lg"><i class="fa-solid fa-wallet text-sm"></i></span>
+                        </div>
+                        <p class="text-3xl font-bold font-roboto tracking-tight text-gray-900 mt-2">$92,400</p>
+                        <div class="mt-2 text-xs font-medium text-gray-500">
+                            Target goal: <span class="text-gray-700 font-medium">$110,000</span>
+                        </div>
+                    </div>
+
+                    <!-- Card 7: Due Rent -->
+                    <div class="bg-white p-6 rounded-xl border border-standard shadow-sm hover:shadow-md transition-shadow sm:col-span-2 lg:col-span-2">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <p class="text-sm font-semibold text-muted uppercase tracking-wider">Total Overdue Rent</p>
+                                <p class="text-3xl font-bold font-roboto tracking-tight text-danger mt-2">$8,150</p>
+                            </div>
+                            <span class="p-2 bg-danger-50 text-danger rounded-lg"><i class="fa-solid fa-triangle-exclamation text-sm"></i></span>
+                        </div>
+                        <div class="mt-3 flex items-center justify-between text-xs border-t border-gray-100 pt-3">
+                            <span class="chip chip-danger"><i class="fa-solid fa-user-clock"></i> 14 accounts overdue</span>
+                            <a href="#" class="text-primary hover:text-secondary font-semibold inline-flex items-center gap-1">View Overdue List <i class="fa-solid fa-arrow-right text-[10px]"></i></a>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- REVENUE TRENDS & STRUCTURAL OVERVIEW GRAPHICAL CONTAINER MOCK -->
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <!-- Revenue Graph Card -->
+                    <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm lg:col-span-2 flex flex-col justify-between">
+                        <div class="flex items-center justify-between border-b border-gray-100 pb-4">
+                            <h3 class="text-md font-semibold text-gray-900">Collection & Occupancy Matrix</h3>
+                            <span class="chip chip-secondary">Interactive Analytics</span>
+                        </div>
+                        <!-- Mock Bar / Line Chart Graphic using native clean HTML elements -->
+                        <div class="h-64 flex items-end gap-4 px-4 pt-6">
+                            <div class="flex-1 flex flex-col items-center gap-2 h-full justify-end">
+                                <div class="w-full bg-indigo-500 rounded-t-md transition-all hover:bg-indigo-600" style="height: 45%"></div>
+                                <span class="text-xs text-gray-400 font-medium">Apr</span>
+                            </div>
+                            <div class="flex-1 flex flex-col items-center gap-2 h-full justify-end">
+                                <div class="w-full bg-indigo-500 rounded-t-md transition-all hover:bg-indigo-600" style="height: 60%"></div>
+                                <span class="text-xs text-gray-400 font-medium">May</span>
+                            </div>
+                            <div class="flex-1 flex flex-col items-center gap-2 h-full justify-end">
+                                <div class="w-full bg-indigo-500 rounded-t-md transition-all hover:bg-indigo-600" style="height: 80%"></div>
+                                <span class="text-xs text-gray-400 font-medium">Jun</span>
+                            </div>
+                            <div class="flex-1 flex flex-col items-center gap-2 h-full justify-end">
+                                <div class="w-full bg-indigo-600 rounded-t-md ring-4 ring-indigo-100 transition-all" style="height: 95%"></div>
+                                <span class="text-xs text-gray-900 font-semibold">Jul</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Occupancy Breakdown Status -->
+                    <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm flex flex-col justify-between">
+                        <div class="border-b border-gray-100 pb-4">
+                            <h3 class="text-md font-semibold text-gray-900">Room Availability Matrix</h3>
+                        </div>
+                        <div class="py-4 space-y-4">
+                            <div>
+                                <div class="flex justify-between text-xs font-medium text-gray-500 mb-1">
+                                    <span>Premium Single Rooms</span>
+                                    <span class="text-gray-900">92% full</span>
+                                </div>
+                                <div class="w-full bg-gray-100 rounded-full h-2">
+                                    <div class="bg-emerald-500 h-2 rounded-full" style="width: 92%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-xs font-medium text-gray-500 mb-1">
+                                    <span>Double Sharing Pods</span>
+                                    <span class="text-gray-900">76% full</span>
+                                </div>
+                                <div class="w-full bg-gray-100 rounded-full h-2">
+                                    <div class="bg-indigo-500 h-2 rounded-full" style="width: 76%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-xs font-medium text-gray-500 mb-1">
+                                    <span>Four Bed Dormitories</span>
+                                    <span class="text-gray-900">64% full</span>
+                                </div>
+                                <div class="w-full bg-gray-100 rounded-full h-2">
+                                    <div class="bg-amber-500 h-2 rounded-full" style="width: 64%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pt-4 border-t border-gray-100 text-center">
+                            <a href="#" class="text-xs font-semibold text-indigo-600 hover:text-indigo-700 inline-flex items-center gap-1">Manage Room Catalogs <i class="fa-solid fa-angle-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+            </main>
+        </div>
+
+    </div>
+
+</body>
+</html>
